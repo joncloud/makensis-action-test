@@ -12,5 +12,5 @@ jobs:
     - name: Upload artifact
       uses: actions/upload-artifact@v1.0.0
       with:
-        name: install.exe
-        path: install.exe
+        name: installsig.exe
+        path: installsig.exe
