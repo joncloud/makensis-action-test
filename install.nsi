@@ -83,7 +83,7 @@ Section "Uninstall"
  
 SectionEnd
  
-;--------------------------------    Test
+;--------------------------------    
 ;MessageBox Section
  
 ;Function that calls a messagebox when installation finished correctly
