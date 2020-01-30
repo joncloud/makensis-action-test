@@ -7,7 +7,7 @@ jobs:
     - uses: actions/checkout@v1
       
     - name: Create nsis installer
-      uses: joncloud/nsis-action@v1
+      uses: joncloud/makensis-action@v1
 
     - name: Upload artifact
       uses: actions/upload-artifact@v1.0.0
