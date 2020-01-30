@@ -4,6 +4,8 @@ jobs:
   create_installer:
     runs-on: windows-latest
     steps:
+    - uses: actions/checkout@v1
+      
     - name: Create nsis installer
       uses: joncloud/nsis-action@v1
 
