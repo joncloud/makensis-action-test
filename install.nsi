@@ -1,5 +1,5 @@
 ; -------------------------------
-; Start
+; Start test
   
   !define PRODUCT_NAME "test"
   !define MUI_BRANDINGTEXT "test Ver. 1.0"
