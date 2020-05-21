@@ -6,8 +6,21 @@ jobs:
     steps:
     - uses: actions/checkout@v1
       
+    - name: Download EnVar plugin for NSIS
+      uses: carlosperate/download-file-action@v1.0.3
+      with:
+        file-url: https://nsis.sourceforge.io/mediawiki/images/7/7f/EnVar_plugin.zip
+        file-name: envar_plugin.zip
+        location: ${{ github.workspace }}
+
+    - name: Extract EnVar plugin
+      run: 7z x -o"${{ github.workspace }}/NSIS_Plugins" "${{ github.workspace }}/envar_plugin.zip"
+
     - name: Create nsis installer
-      uses: joncloud/makensis-action@v1
+      uses: joncloud/makensis-action@v1.1
+      with:
+        include-more-plugins: true
+        include-custom-plugins-path: ${{ github.workspace }}/NSIS_Plugins/Plugins
 
     - name: Upload artifact
       uses: actions/upload-artifact@v1.0.0
