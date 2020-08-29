@@ -19,8 +19,7 @@ jobs:
     - name: Create nsis installer
       uses: joncloud/makensis-action@v3.0
       with:
-        include-more-plugins: true
-        include-custom-plugins-path: ${{ github.workspace }}/NSIS_Plugins/Plugins
+        additional-plugin-paths: ${{ github.workspace }}/NSIS_Plugins/Plugins
 
     - name: Upload artifact
       uses: actions/upload-artifact@v1.0.0
