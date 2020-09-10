@@ -34,7 +34,7 @@ jobs:
       if: ${{ matrix.os == 'ubuntu-20.04' }}
 
     - name: Create nsis installer
-      uses: joncloud/makensis-action@test-plugins
+      uses: joncloud/makensis-action@v3.3
       with:
         additional-plugin-paths: ${{ github.workspace }}/NSIS_Plugins/Plugins
 
