@@ -2,7 +2,12 @@ on: [push]
 
 jobs:
   create_installer:
-    runs-on: [ 'windows-latest', 'ubuntu-latest', 'macos-latest' ]
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ 'windows-latest', 'ubuntu-latest', 'macos-latest' ]
+
     steps:
     - uses: actions/checkout@v1
       
