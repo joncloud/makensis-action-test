@@ -21,6 +21,14 @@ jobs:
     - name: Extract EnVar plugin
       run: 7z x -o"${{ github.workspace }}/NSIS_Plugins" "${{ github.workspace }}/envar_plugin.zip"
 
+    - name: 'Install makensis (apt)'
+      run: sudo apt update && sudo apt install -y nsis nsis-pluginapi
+      if: ${{ matrix.os == 'ubuntu-latest' }}
+
+    - name: 'Install makensis (homebrew)'
+      run: brew update && brew install makensis
+      if: ${{ matrix.os == 'macos-latest' }}
+
     - name: Create nsis installer
       uses: joncloud/makensis-action@v3.2
       with:
