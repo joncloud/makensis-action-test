@@ -29,6 +29,10 @@ jobs:
       run: brew update && brew install makensis
       if: ${{ matrix.os == 'macos-latest' }}
 
+    - name: 'Set Plugin permissions'
+      run: sudo chown -R $(whoami) /usr/share/nsis/Plugins/
+      if: ${{ matrix.os == 'ubuntu-20.04' }}
+
     - name: Create nsis installer
       uses: joncloud/makensis-action@test-plugins
       with:
