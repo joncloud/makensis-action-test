@@ -2,7 +2,12 @@ on: [push]
 
 jobs:
   create_installer:
-    runs-on: windows-latest
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ 'windows-latest', 'ubuntu-20.04', 'macos-latest' ]
+
     steps:
     - uses: actions/checkout@v1
       
@@ -16,8 +21,20 @@ jobs:
     - name: Extract EnVar plugin
       run: 7z x -o"${{ github.workspace }}/NSIS_Plugins" "${{ github.workspace }}/envar_plugin.zip"
 
+    - name: 'Install makensis (apt)'
+      run: sudo apt update && sudo apt install -y nsis nsis-pluginapi
+      if: ${{ matrix.os == 'ubuntu-20.04' }}
+
+    - name: 'Install makensis (homebrew)'
+      run: brew update && brew install makensis
+      if: ${{ matrix.os == 'macos-latest' }}
+
+    - name: 'Set Plugin permissions'
+      run: sudo chown -R $(whoami) /usr/share/nsis/Plugins/
+      if: ${{ matrix.os == 'ubuntu-20.04' }}
+
     - name: Create nsis installer
-      uses: joncloud/makensis-action@v3.1
+      uses: joncloud/makensis-action@test-plugins
       with:
         additional-plugin-paths: ${{ github.workspace }}/NSIS_Plugins/Plugins
 
