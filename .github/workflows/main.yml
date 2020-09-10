@@ -30,7 +30,7 @@ jobs:
       if: ${{ matrix.os == 'macos-latest' }}
 
     - name: Create nsis installer
-      uses: joncloud/makensis-action@v3.2
+      uses: joncloud/makensis-action@test-plugins
       with:
         additional-plugin-paths: ${{ github.workspace }}/NSIS_Plugins/Plugins
 
