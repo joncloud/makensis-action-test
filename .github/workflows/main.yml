@@ -1,4 +1,4 @@
-on: [push]
+on: ['push']
 
 jobs:
   create_installer:
@@ -9,10 +9,10 @@ jobs:
         os: [ 'windows-latest', 'ubuntu-20.04', 'macos-latest' ]
 
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v3
 
     - name: Download EnVar plugin for NSIS
-      uses: carlosperate/download-file-action@v1.0.3
+      uses: carlosperate/download-file-action@v2
       with:
         file-url: https://nsis.sourceforge.io/mediawiki/images/7/7f/EnVar_plugin.zip
         file-name: envar_plugin.zip
@@ -39,7 +39,7 @@ jobs:
         additional-plugin-paths: ${{ github.workspace }}/NSIS_Plugins/Plugins
 
     - name: Upload artifact
-      uses: actions/upload-artifact@v1.0.0
+      uses: actions/upload-artifact@v3
       with:
         name: installsig.exe
         path: installsig.exe
