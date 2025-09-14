@@ -6,13 +6,13 @@ jobs:
 
     strategy:
       matrix:
-        os: [ 'windows-latest', 'ubuntu-20.04', 'macos-latest' ]
+        os: [ 'windows-latest', 'windows-2025', 'ubuntu-latest', 'macos-latest' ]
 
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v5
 
     - name: Download EnVar plugin for NSIS
-      uses: carlosperate/download-file-action@v1.0.3
+      uses: carlosperate/download-file-action@v2
       with:
         file-url: https://nsis.sourceforge.io/mediawiki/images/7/7f/EnVar_plugin.zip
         file-name: envar_plugin.zip
@@ -21,9 +21,13 @@ jobs:
     - name: Extract EnVar plugin
       run: 7z x -o"${{ github.workspace }}/NSIS_Plugins" "${{ github.workspace }}/envar_plugin.zip"
 
+    - name: 'Install makensis (choco)'
+      run: choco install nsis
+      if: ${{ matrix.os == 'windows-latest' || matrix.os == 'windows-2025' }}
+
     - name: 'Install makensis (apt)'
       run: sudo apt update && sudo apt install -y nsis nsis-pluginapi
-      if: ${{ matrix.os == 'ubuntu-20.04' }}
+      if: ${{ matrix.os == 'ubuntu-latest' }}
 
     - name: 'Install makensis (homebrew)'
       run: brew update && brew install makensis
@@ -31,15 +35,15 @@ jobs:
 
     - name: 'Set Plugin permissions'
       run: sudo chown -R $(whoami) /usr/share/nsis/Plugins/
-      if: ${{ matrix.os == 'ubuntu-20.04' }}
+      if: ${{ matrix.os == 'ubuntu-latest' }}
 
     - name: Create nsis installer
-      uses: joncloud/makensis-action@publish
+      uses: joncloud/makensis-action@v5.0
       with:
         additional-plugin-paths: ${{ github.workspace }}/NSIS_Plugins/Plugins
 
     - name: Upload artifact
-      uses: actions/upload-artifact@v1.0.0
+      uses: actions/upload-artifact@v4
       with:
-        name: installsig.exe
+        name: ${{ matrix.os }}-installsig.exe
         path: installsig.exe
