@@ -45,5 +45,5 @@ jobs:
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
-        name: ${{ matrix.os }}/installsig.exe
+        name: ${{ matrix.os }}-installsig.exe
         path: installsig.exe
