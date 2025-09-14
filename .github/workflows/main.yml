@@ -27,7 +27,7 @@ jobs:
 
     - name: 'Install makensis (apt)'
       run: sudo apt update && sudo apt install -y nsis nsis-pluginapi
-      if: ${{ matrix.os == 'ubuntu-20.04' }}
+      if: ${{ matrix.os == 'ubuntu-latest' }}
 
     - name: 'Install makensis (homebrew)'
       run: brew update && brew install makensis
@@ -35,7 +35,7 @@ jobs:
 
     - name: 'Set Plugin permissions'
       run: sudo chown -R $(whoami) /usr/share/nsis/Plugins/
-      if: ${{ matrix.os == 'ubuntu-20.04' }}
+      if: ${{ matrix.os == 'ubuntu-latest' }}
 
     - name: Create nsis installer
       uses: joncloud/makensis-action@upgrade-versions
