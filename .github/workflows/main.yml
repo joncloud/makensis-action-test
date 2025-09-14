@@ -23,7 +23,7 @@ jobs:
 
     - name: 'Install makensis (choco)'
       run: choco install nsis
-      if: ${{ matrix.os == 'windows-latest' }}
+      if: ${{ matrix.os == 'windows-latest' || matrix.os == 'windows-2025' }}
 
     - name: 'Install makensis (apt)'
       run: sudo apt update && sudo apt install -y nsis nsis-pluginapi
