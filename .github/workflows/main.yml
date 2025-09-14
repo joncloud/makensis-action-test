@@ -21,6 +21,10 @@ jobs:
     - name: Extract EnVar plugin
       run: 7z x -o"${{ github.workspace }}/NSIS_Plugins" "${{ github.workspace }}/envar_plugin.zip"
 
+    - name: 'Install makensis (choco)'
+      run: choco install nsis
+      if: ${{ matrix.os == 'windows-latest' }}
+
     - name: 'Install makensis (apt)'
       run: sudo apt update && sudo apt install -y nsis nsis-pluginapi
       if: ${{ matrix.os == 'ubuntu-20.04' }}
@@ -34,7 +38,7 @@ jobs:
       if: ${{ matrix.os == 'ubuntu-20.04' }}
 
     - name: Create nsis installer
-      uses: joncloud/makensis-action@publish
+      uses: joncloud/makensis-action@upgrade-version
       with:
         additional-plugin-paths: ${{ github.workspace }}/NSIS_Plugins/Plugins
 
